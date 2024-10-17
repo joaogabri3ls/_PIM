@@ -10,22 +10,22 @@ using _PIM.Models;
 
 namespace _PIM.Controllers
 {
-    public class ProdutoModelsController : Controller
+    public class ProdutoController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ProdutoModelsController(ApplicationDbContext context)
+        public ProdutoController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: ProdutoModels
+        // GET: Produto
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Produtos.ToListAsync());
+            return View(await _context.Produto.ToListAsync());
         }
 
-        // GET: ProdutoModels/Details/5
+        // GET: Produto/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,7 +33,7 @@ namespace _PIM.Controllers
                 return NotFound();
             }
 
-            var produtoModel = await _context.Produtos
+            var produtoModel = await _context.Produto
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (produtoModel == null)
             {
@@ -43,18 +43,18 @@ namespace _PIM.Controllers
             return View(produtoModel);
         }
 
-        // GET: ProdutoModels/Create
+        // GET: Produto/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ProdutoModels/Create
+        // POST: Produto/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Price,Quantity,UrlImagem,Categoria,CriadoEm")] ProdutoModel produtoModel)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Preco,Quantidade,UrlImagem")] ProdutoModel produtoModel)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace _PIM.Controllers
             return View(produtoModel);
         }
 
-        // GET: ProdutoModels/Edit/5
+        // GET: Produto/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,7 +73,7 @@ namespace _PIM.Controllers
                 return NotFound();
             }
 
-            var produtoModel = await _context.Produtos.FindAsync(id);
+            var produtoModel = await _context.Produto.FindAsync(id);
             if (produtoModel == null)
             {
                 return NotFound();
@@ -81,12 +81,12 @@ namespace _PIM.Controllers
             return View(produtoModel);
         }
 
-        // POST: ProdutoModels/Edit/5
+        // POST: Produto/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Price,Quantity,UrlImagem,Categoria,CriadoEm")] ProdutoModel produtoModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Preco,Quantidade,UrlImagem")] ProdutoModel produtoModel)
         {
             if (id != produtoModel.Id)
             {
@@ -116,7 +116,7 @@ namespace _PIM.Controllers
             return View(produtoModel);
         }
 
-        // GET: ProdutoModels/Delete/5
+        // GET: Produto/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,7 +124,7 @@ namespace _PIM.Controllers
                 return NotFound();
             }
 
-            var produtoModel = await _context.Produtos
+            var produtoModel = await _context.Produto
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (produtoModel == null)
             {
@@ -134,15 +134,15 @@ namespace _PIM.Controllers
             return View(produtoModel);
         }
 
-        // POST: ProdutoModels/Delete/5
+        // POST: Produto/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var produtoModel = await _context.Produtos.FindAsync(id);
+            var produtoModel = await _context.Produto.FindAsync(id);
             if (produtoModel != null)
             {
-                _context.Produtos.Remove(produtoModel);
+                _context.Produto.Remove(produtoModel);
             }
 
             await _context.SaveChangesAsync();
@@ -151,7 +151,7 @@ namespace _PIM.Controllers
 
         private bool ProdutoModelExists(int id)
         {
-            return _context.Produtos.Any(e => e.Id == id);
+            return _context.Produto.Any(e => e.Id == id);
         }
     }
 }

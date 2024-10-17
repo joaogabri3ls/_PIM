@@ -1,0 +1,48 @@
+﻿@model IEnumerable<_PIM.Models.ProdutoModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/produtos.css" />
+}
+<h1>Gerenciamento de estoque</h1>
+
+<button><a asp-action="Create">Adicionar produto</a></button>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.First().Nome)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Preco)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Quantidade)</th>
+            <th>@Html.DisplayNameFor(model => model.First().UrlImagem)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Preco)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Quantidade)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UrlImagem)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-fill"></i></a>
+                        <a asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-search"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash3"></i></a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">Nenhum produto encontrado.</td>
+            </tr>
+        }
+    </tbody>
+</table>

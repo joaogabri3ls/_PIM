@@ -1,0 +1,28 @@
+﻿body {
+    display: flex;
+    background-color: #f8f9fa;
+}
+
+.sidebar {
+    background-color: #007bff;
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+}
+
+    .sidebar h1 {
+        margin-bottom: 35px;
+        color: #f8f9fa;
+    }
+
+.sidebar a {
+    display: flex;
+    gap: 1rem;    
+    align-items: center;
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.sidebar a:hover {
+    background-color: #009afff2;
+}
