@@ -9,7 +9,10 @@
 }
 <h1>Gerenciamento de estoque</h1>
 
-<button><a asp-action="Create">Adicionar produto</a></button>
+<button class="Actions" onclick="window.location.href='@Url.Action("Create")'">
+    <p>Adicionar produto</p>
+</button>
+
 <table class="table">
     <thead>
         <tr>
@@ -31,9 +34,12 @@
                     <td>@Html.DisplayFor(modelItem => item.Quantidade)</td>
                     <td>@Html.DisplayFor(modelItem => item.UrlImagem)</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-fill"></i></a>
-                        <a asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-search"></i></a>
-                        <a asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash3"></i></a>
+                        <button class="Actions" onclick="window.location.href='@Url.Action("Edit", new { id = item.Id })'">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                        <button class="Actions" onclick="window.location.href='@Url.Action("Delete", new { id = item.Id })'">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
                     </td>
                 </tr>
             }

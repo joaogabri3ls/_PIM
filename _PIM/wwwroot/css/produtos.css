@@ -1,21 +1,17 @@
 ﻿button {
     border: none;
-    
+    background-color: #007bff;
     border-radius: 5px;
     padding: 6px;
     font-weight: 600;
     margin-bottom: 10px;
     text-decoration: none;
+    color: white;
 }
-    button a{
-        text-decoration: none;
-        color: #f8f9fa;
-    }
-    button  a:hover {
-        text-decoration: none;
-        color: #f8f9fa;
-    }
 
+p {
+    margin: 0;
+}
 
 button:hover {
     background-color: #009afff2;

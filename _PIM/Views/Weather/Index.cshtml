@@ -1,0 +1,16 @@
+﻿@model WeatherData
+
+<h2>Condições Climáticas</h2>
+
+@if (Model != null)
+{
+    <div>
+        <p>Temperatura: @Model.Main.Temp °C</p>
+        <p>Umidade: @Model.Main.Humidity %</p>
+        <p>Velocidade do Vento: @Model.Wind.Speed km/h</p>
+    </div>
+}
+else
+{
+    <p>Não foi possível obter os dados do clima.</p>
+}
