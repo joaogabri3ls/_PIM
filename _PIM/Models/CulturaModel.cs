@@ -1,7 +1,7 @@
 ﻿using _PIM.Models;
 using NuGet.Protocol.Plugins;
-using System.Collections.Generic; // Para ICollection
-using System.ComponentModel.DataAnnotations; // Para Data Annotations
+using System.Collections.Generic; 
+using System.ComponentModel.DataAnnotations; 
 
 public class Cultura
 {
@@ -10,11 +10,11 @@ public class Cultura
 
     [Required]
     [StringLength(100)]
-    public string Nome { get; set; } // Nome da cultura (Alface, Tomate ou Rúcula)
+    public string Nome { get; set; } 
 
-    public double UmidadeSoloIdeal { get; set; } // Umidade ideal do solo (%)
+    public double UmidadeSoloIdeal { get; set; } 
 
-    public double NivelNutrientesIdeal { get; set; } // Nível ideal de nutrientes
+    public double NivelNutrientesIdeal { get; set; } 
 
-    public ICollection<SensorModel> Sensores { get; set; } // Sensores associados a essa cultura
+    public ICollection<SensorModel> Sensores { get; set; }
 }

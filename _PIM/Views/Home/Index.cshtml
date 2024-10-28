@@ -1,8 +1,181 @@
-﻿@{
+﻿@model IEnumerable<_PIM.Models.ProdutoModel>
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+        <link rel="stylesheet" href="~/css/home.css" />
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<header>
+    <div class="logo">
+        <h1>Cultivarte</h1>
+    </div>
+    <div class="cart" onclick="abrirCarrinho()">
+        <i class="bi bi-bag-fill"></i>
+        <span>0</span>
+    </div>
+</header>
+
+<div id="cartMenu" class="cartMenu">
+    <a href="javascript:void(0)" class="closeBtn" onclick="fecharCarrinho()">&times;</a>
+    <h2>Carrinho</h2>
+    <ul id="cartItems"></ul>
+    <div id="cartFooter" class="cartFooter">
+        <span id="totalCart" class="totalDisplay">Total: R$ 0.00</span>
+        <button onclick="finalizarCompra()" class="finalizeButton">Finalizar Compra</button>
+    </div>
 </div>
+
+<div class="productContainer">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+                    <div class="productCard">
+                        <img src="https://cdn.awsli.com.br/600x1000/1982/1982052/produto/174027508/53c931b15d.jpg" alt="@item.Nome" class="productImage" />
+                        <h2>@item.Nome</h2>
+                        <p>Preço: R$ @item.Preco</p>
+                        <form id="form-@item.Id" onsubmit="adicionarAoCarrinho(@item.Id, '@item.Nome', @item.Preco); return false;">
+                            <button type="submit" class="buyButton">Comprar</button>
+                        </form>
+                    </div>
+        }
+    }
+    else
+    {
+            <p>Nenhum produto encontrado.</p>
+    }
+</div>
+
+<script>
+let carrinho = [];
+let totalItensCarrinho = 0;
+
+function adicionarAoCarrinho(produtoId, nomeProduto, precoProduto) {
+    precoProduto = parseFloat(precoProduto);
+    if (isNaN(precoProduto)) {
+        alert('Preço do produto é inválido.');
+        return;
+    }
+
+    let produtoExistente = carrinho.find(item => item.produtoId === produtoId);
+
+    if (produtoExistente) {
+        alert('O produto "' + nomeProduto + '" já foi adicionado ao carrinho.');
+    } else {
+        carrinho.push({ produtoId, nomeProduto, precoProduto, quantidade: 1 });
+        totalItensCarrinho++;
+        document.querySelector('.cart span').textContent = totalItensCarrinho;
+        atualizarCarrinho();
+        alert('Produto "' + nomeProduto + '" adicionado ao carrinho.');
+    }
+}
+
+function removerDoCarrinho(produtoId) {
+    carrinho = carrinho.filter(item => item.produtoId !== produtoId);
+    totalItensCarrinho--;
+    document.querySelector('.cart span').textContent = totalItensCarrinho;
+    atualizarCarrinho();
+}
+
+function atualizarCarrinho() {
+    let cartItems = document.getElementById('cartItems');
+    cartItems.innerHTML = '';
+
+    carrinho.forEach(item => {
+        let li = document.createElement('li');
+        li.classList.add('cartItem');
+
+        let removeBtn = document.createElement('button');
+        removeBtn.classList.add('removeBtn');
+        removeBtn.textContent = 'X';
+        removeBtn.onclick = () => removerDoCarrinho(item.produtoId);
+        li.appendChild(removeBtn);
+
+        let img = document.createElement('img');
+        img.classList.add('productImg');
+        img.src = "https://cdn.awsli.com.br/600x1000/1982/1982052/produto/174027508/53c931b15d.jpg";
+        li.appendChild(img);
+
+        let nome = document.createElement('span');
+        nome.classList.add('productName');
+        nome.textContent = item.nomeProduto;
+        li.appendChild(nome);
+
+        let qtdDiv = document.createElement('div');
+        qtdDiv.classList.add('quantityContainer');
+
+        let btnMenos = document.createElement('button');
+        btnMenos.classList.add('quantityButton');
+        btnMenos.textContent = '-';
+        btnMenos.onclick = () => alterarQuantidade(item.produtoId, -1);
+        qtdDiv.appendChild(btnMenos);
+
+        let qtd = document.createElement('span');
+        qtd.classList.add('quantityDisplay');
+        qtd.textContent = item.quantidade;
+        qtdDiv.appendChild(qtd);
+
+        let btnMais = document.createElement('button');
+        btnMais.classList.add('quantityButton');
+        btnMais.textContent = '+';
+        btnMais.onclick = () => alterarQuantidade(item.produtoId, 1);
+        qtdDiv.appendChild(btnMais);
+
+        li.appendChild(qtdDiv);
+
+        let preco = document.createElement('span');
+        preco.classList.add('priceDisplay');
+        preco.textContent = 'R$ ' + item.precoProduto.toFixed(2);
+        li.appendChild(preco);
+
+        cartItems.appendChild(li);
+    });
+
+    calcularTotalCarrinho();
+}
+
+function alterarQuantidade(produtoId, valor) {
+    let produto = carrinho.find(item => item.produtoId === produtoId);
+    if (produto) {
+        produto.quantidade += valor;
+        if (produto.quantidade <= 0) {
+            removerDoCarrinho(produtoId);
+        } else {
+            atualizarCarrinho();
+        }
+    }
+}
+
+function calcularTotalCarrinho() {
+    let total = carrinho.reduce((sum, item) => sum + item.precoProduto * item.quantidade, 0);
+    document.getElementById('totalCart').textContent = 'Total: R$ ' + total.toFixed(2);
+    return total;
+}
+
+function finalizarCompra() {
+    if (carrinho.length === 0) {
+        alert('O carrinho está vazio.');
+        return;
+    }
+
+    let total = calcularTotalCarrinho();
+    alert('Compra finalizada! Total: R$ ' + total.toFixed(2));
+
+    carrinho = [];
+    totalItensCarrinho = 0;
+    document.querySelector('.cart span').textContent = totalItensCarrinho;
+    atualizarCarrinho();
+    fecharCarrinho();
+}
+
+function abrirCarrinho() {
+    document.getElementById('cartMenu').style.width = "450px";
+}
+
+function fecharCarrinho() {
+    document.getElementById('cartMenu').style.width = "0";
+}
+
+</script>

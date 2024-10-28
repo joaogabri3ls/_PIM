@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\admin.css"
     },
     {
+      "Id": "D:\\Projetos\\_PIM\\_PIM\\wwwroot\\css\\home.css",
+      "PackagePath": "staticwebassets\\css\\home.css"
+    },
+    {
       "Id": "D:\\Projetos\\_PIM\\_PIM\\wwwroot\\css\\produtos.css",
       "PackagePath": "staticwebassets\\css\\produtos.css"
     },

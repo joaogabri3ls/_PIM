@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "l7cUwZ9TxUNJiMuAqiwzGAbEh4Bk2IZSAndjKjL44fw=",
+  "Hash": "AP3NIVo9H3Qe5Z3uO1DniyJSPISXhccaUT1J+fcd9ew=",
   "Source": "_PIM",
   "BasePath": "_content/_PIM",
   "Mode": "Default",
@@ -72,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\admin.css"
+    },
+    {
+      "Identity": "D:\\Projetos\\_PIM\\_PIM\\wwwroot\\css\\home.css",
+      "SourceId": "_PIM",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projetos\\_PIM\\_PIM\\wwwroot\\",
+      "BasePath": "_content/_PIM",
+      "RelativePath": "css/home.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\home.css"
     },
     {
       "Identity": "D:\\Projetos\\_PIM\\_PIM\\wwwroot\\css\\produtos.css",
