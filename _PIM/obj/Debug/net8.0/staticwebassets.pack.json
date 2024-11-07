@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\_PIM.bundle.scp.css"
     },
     {
+      "Id": "D:\\Projetos\\_PIM\\_PIM\\wwwroot\\css\\account.css",
+      "PackagePath": "staticwebassets\\css\\account.css"
+    },
+    {
       "Id": "D:\\Projetos\\_PIM\\_PIM\\wwwroot\\css\\admin.css",
       "PackagePath": "staticwebassets\\css\\admin.css"
     },
