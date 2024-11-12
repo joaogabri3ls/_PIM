@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var isAdmin = User.IsInRole("Admin");
 }
 @section Styles {
         <link rel="stylesheet" href="~/css/home.css" />
@@ -11,9 +12,15 @@
     <div class="logo">
         <h1>Cultivarte</h1>
     </div>
+    <div class="rightContent">
+    @if (isAdmin)
+    {
+            <a asp-controller="Admin" asp-action="Index" style="background: white; color: #353535";>Dashboard</a>
+    }
     <div class="cart" onclick="abrirCarrinho()">
         <i class="bi bi-bag-fill"></i>
         <span>0</span>
+    </div>
     </div>
 </header>
 

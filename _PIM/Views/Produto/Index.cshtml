@@ -7,9 +7,10 @@
 @section Styles {
     <link rel="stylesheet" href="~/css/produtos.css" />
 }
+
 <h1>Gerenciamento de estoque</h1>
 
-<button class="Actions" onclick="window.location.href='@Url.Action("Create")'">
+<button class="Actions" onclick="window.location.href='@Url.Action("Create", "Produto")'">
     <p>Adicionar produto</p>
 </button>
 
@@ -34,10 +35,10 @@
                     <td>@Html.DisplayFor(modelItem => item.Quantidade)</td>
                     <td>@Html.DisplayFor(modelItem => item.UrlImagem)</td>
                     <td>
-                        <button class="Actions" onclick="window.location.href='@Url.Action("Edit", new { id = item.Id })'">
+                        <button class="Actions" onclick="window.location.href='@Url.Action("Edit", "Produto", new { id = item.Id })'">
                             <i class="bi bi-pencil-fill"></i>
                         </button>
-                        <button class="Actions" onclick="window.location.href='@Url.Action("Delete", new { id = item.Id })'">
+                        <button class="Actions" onclick="window.location.href='@Url.Action("Delete", "Produto", new { id = item.Id })'">
                             <i class="bi bi-trash-fill"></i>
                         </button>
                     </td>

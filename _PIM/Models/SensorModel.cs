@@ -4,26 +4,16 @@ namespace _PIM.Models
 {
     public class SensorModel
     {
-    [Key]
-    public int SensorId { get; set; }
+        [Key]  // Define a chave primária
+        public int Id { get; set; }
+        [Display(Name = "Tipo de Sensor")]
+        public string Tipo { get; set; }
 
-    [Required]
-    [StringLength(100)]
-    public string Nome { get; set; }
-    [Required]
-    [StringLength(50)]
-    public string TipoSensor { get; set; } 
+        [Range(0, 100)]
+        [Display(Name = "Valor")]
+        public int Valor { get; set; }
 
-    [Required]
-    public int CulturaId { get; set; } 
-
-    [ForeignKey("CulturaId")]
-    public Cultura Cultura { get; set; } 
-
-    [Required]
-    public double Valor { get; set; } 
-
-    [Required]
-    public DateTime UltimaLeitura { get; set; } 
-}
+        [Display(Name = "Unidade")]
+        public string Unidade { get; set; }
+    }
 }

@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _PIM.Data;
 using _PIM.Models;
+using System.Threading.Tasks;
 
 namespace _PIM.Controllers
 {
+    [Authorize]
     public class ProdutoController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -19,78 +17,75 @@ namespace _PIM.Controllers
             _context = context;
         }
 
-        // GET: Produto
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Produto.ToListAsync());
+            var produtos = await _context.Produto.ToListAsync();
+            return View(produtos);
         }
 
-        // GET: Produto/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "Produto não encontrado.";
+                return RedirectToAction(nameof(Index));
             }
 
             var produtoModel = await _context.Produto
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (produtoModel == null)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "Produto não encontrado.";
+                return RedirectToAction(nameof(Index));
             }
 
             return View(produtoModel);
         }
 
-        // GET: Produto/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Produto/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome,Preco,Quantidade,UrlImagem")] ProdutoModel produtoModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(produtoModel);
+                _context.Produto.Add(produtoModel);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Produto criado com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
             return View(produtoModel);
         }
 
-        // GET: Produto/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "Produto não encontrado.";
+                return RedirectToAction(nameof(Index));
             }
 
             var produtoModel = await _context.Produto.FindAsync(id);
             if (produtoModel == null)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "Produto não encontrado.";
+                return RedirectToAction(nameof(Index));
             }
             return View(produtoModel);
         }
 
-        // POST: Produto/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Preco,Quantidade,UrlImagem")] ProdutoModel produtoModel)
         {
             if (id != produtoModel.Id)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "Produto não encontrado.";
+                return RedirectToAction(nameof(Index));
             }
 
             if (ModelState.IsValid)
@@ -99,12 +94,14 @@ namespace _PIM.Controllers
                 {
                     _context.Update(produtoModel);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Produto atualizado com sucesso!";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ProdutoModelExists(produtoModel.Id))
                     {
-                        return NotFound();
+                        TempData["ErrorMessage"] = "Erro ao atualizar: Produto não encontrado.";
+                        return RedirectToAction(nameof(Index));
                     }
                     else
                     {
@@ -116,25 +113,25 @@ namespace _PIM.Controllers
             return View(produtoModel);
         }
 
-        // GET: Produto/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "Produto não encontrado.";
+                return RedirectToAction(nameof(Index));
             }
 
             var produtoModel = await _context.Produto
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (produtoModel == null)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "Produto não encontrado.";
+                return RedirectToAction(nameof(Index));
             }
 
             return View(produtoModel);
         }
 
-        // POST: Produto/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -143,9 +140,13 @@ namespace _PIM.Controllers
             if (produtoModel != null)
             {
                 _context.Produto.Remove(produtoModel);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Produto excluído com sucesso!";
             }
-
-            await _context.SaveChangesAsync();
+            else
+            {
+                TempData["ErrorMessage"] = "Erro ao excluir: Produto não encontrado.";
+            }
             return RedirectToAction(nameof(Index));
         }
 

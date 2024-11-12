@@ -1,0 +1,29 @@
+﻿@model IEnumerable<_PIM.Models.PlantaModel>
+@{
+    ViewData["Title"] = "Lista de Plantas";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>Lista de Plantas</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome da Planta</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var planta in Model)
+        {
+            <tr>
+                <td>@planta.Nome</td>
+                <td>
+                    <a href="@Url.Action("Sensores", "Admin", new { idPlanta = planta.Id, fase = "Germinacao" })">Germinação</a> |
+                    <a href="@Url.Action("Sensores", "Admin", new { idPlanta = planta.Id, fase = "CrescimentoVegetativo" })">Crescimento Vegetativo</a> |
+                    <a href="@Url.Action("Sensores", "Admin", new { idPlanta = planta.Id, fase = "Florescimento" })">Florescimento</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

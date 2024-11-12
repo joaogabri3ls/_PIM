@@ -7,6 +7,9 @@ D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\_PIM.runtimeconfig.json
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\_PIM.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\_PIM.pdb
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Humanizer.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.AspNetCore.Razor.Language.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Build.dll
@@ -33,6 +36,8 @@ D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
@@ -259,8 +264,3 @@ D:\Projetos\_PIM\_PIM\obj\Debug\net8.0\refint\_PIM.dll
 D:\Projetos\_PIM\_PIM\obj\Debug\net8.0\_PIM.pdb
 D:\Projetos\_PIM\_PIM\obj\Debug\net8.0\_PIM.genruntimeconfig.cache
 D:\Projetos\_PIM\_PIM\obj\Debug\net8.0\ref\_PIM.dll
-D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
-D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
-D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
-D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll

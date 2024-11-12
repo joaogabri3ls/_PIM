@@ -9,5 +9,7 @@ namespace _PIM.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<ProdutoModel> Produto { get; set; }
+        public DbSet<PlantaModel> Plantas { get; set; }
+        public DbSet<SensorModel> Sensores { get; set; }
     }
 }

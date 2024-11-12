@@ -9,6 +9,7 @@ namespace _PIM.Controllers
             return View();
         }
 
+        [Route("Dashboard/Produtos")]
         public IActionResult Produtos()
         {
             return View("~/Views/Produto/Index.cshtml");

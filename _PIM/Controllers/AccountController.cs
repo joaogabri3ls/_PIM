@@ -16,11 +16,9 @@ namespace _PIM.Controllers
             _signInManager = signInManager;
         }
 
-        // Método para exibir a view de registro
         [HttpGet]
         public IActionResult Register() => View();
 
-        // Método para registrar o usuário
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -30,8 +28,8 @@ namespace _PIM.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    TempData["Message"] = "Conta criada com sucesso! Faça login para acessar o sistema.";
+                    return RedirectToAction("Login", "Account");
                 }
                 foreach (var error in result.Errors)
                 {
@@ -41,11 +39,16 @@ namespace _PIM.Controllers
             return View(model);
         }
 
-        // Método para exibir a view de login
         [HttpGet]
-        public IActionResult Login() => View();
+        public IActionResult Login()
+        {
+            if (TempData["Message"] != null)
+            {
+                ViewBag.Message = TempData["Message"];
+            }
+            return View();
+        }
 
-        // Método para fazer login
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -56,12 +59,11 @@ namespace _PIM.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                ModelState.AddModelError(string.Empty, "Tentativa de login inválida.");
             }
             return View(model);
         }
 
-        // Método para fazer logout
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

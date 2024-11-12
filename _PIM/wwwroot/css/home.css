@@ -12,6 +12,12 @@ header {
     color: white;
 }
 
+.rightContent {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
 .cart {
     margin-right: 15px;
     width: 55px;

@@ -1,31 +1,75 @@
 ﻿@model _PIM.ViewModels.RegisterViewModel
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Registrar";
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/account.css" />
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="modal-overlay">
+    <div class="login-modal">
+        <h2>@ViewData["Title"]</h2>
 
-<form asp-action="Register" method="post">
-    <div>
-        <label asp-for="Email"></label>
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="ConfirmPassword"></label>
-        <input asp-for="ConfirmPassword" />
-        <span asp-validation-for="ConfirmPassword"></span>
-    </div>
-    <button type="submit">Register</button>
-</form>
+        <!-- Mensagem de feedback para sucesso ou erro -->
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-info">
+                @TempData["Message"]
+            </div>
+        }
 
-<a asp-action="Login">Already have an account? Login</a>
+        <form asp-action="Register" method="post" class="login-form" novalidate>
+            <div class="form-group">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" class="form-control" placeholder="Digite seu email" autocomplete="email" required />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="form-label">Senha</label>
+                <input asp-for="Password" type="password" id="password" class="form-control" placeholder="Digite sua senha" autocomplete="new-password" required />
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+                <!-- Feedback dinâmico dos requisitos de senha -->
+                <div id="password-feedback" class="alert alert-warning mt-2"></div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="form-label">Confirme a Senha</label>
+                <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirme sua senha" autocomplete="new-password" required />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+        </form>
+
+        <div class="register-link text-center">
+            <p>Já tem uma conta? <a asp-action="Login">Faça login aqui</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('password').addEventListener('input', function () {
+        const password = this.value;
+        const feedback = document.getElementById('password-feedback');
+
+        // Requisitos da senha
+        const lengthRequirement = password.length >= 6;
+        const lowercaseRequirement = /[a-z]/.test(password);
+        const uppercaseRequirement = /[A-Z]/.test(password);
+        const digitRequirement = /\d/.test(password);
+
+        // Mensagens de feedback
+        const feedbackMessages = [];
+        if (!lengthRequirement) feedbackMessages.push("A senha precisa ter pelo menos 6 caracteres.");
+        if (!lowercaseRequirement) feedbackMessages.push("A senha precisa conter pelo menos uma letra minúscula.");
+        if (!uppercaseRequirement) feedbackMessages.push("A senha precisa conter pelo menos uma letra maiúscula.");
+        if (!digitRequirement) feedbackMessages.push("A senha precisa conter pelo menos um número.");
+
+        // Exibir feedback conforme os requisitos
+        feedback.innerHTML = feedbackMessages.length > 0 ? feedbackMessages.join("<br>") : "A senha atende a todos os requisitos.";
+        feedback.className = feedbackMessages.length > 0 ? "alert alert-warning mt-2" : "alert alert-success mt-2";
+    });
+</script>

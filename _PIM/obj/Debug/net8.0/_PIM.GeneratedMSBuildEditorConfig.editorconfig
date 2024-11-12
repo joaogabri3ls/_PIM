@@ -34,12 +34,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Projetos/_PIM/_PIM/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Projetos/_PIM/_PIM/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Projetos/_PIM/_PIM/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+[D:/Projetos/_PIM/_PIM/Views/Plantas/ListaPlantas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhbnRhc1xMaXN0YVBsYW50YXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projetos/_PIM/_PIM/Views/Plantas/Sensores.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhbnRhc1xTZW5zb3Jlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projetos/_PIM/_PIM/Views/Produto/Create.cshtml]
