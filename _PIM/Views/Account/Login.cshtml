@@ -7,24 +7,39 @@
     <link rel="stylesheet" href="~/css/account.css" />
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="login-container">
+    <h2>@ViewData["Title"]</h2>
+    
+    <!-- Mensagem de feedback para sucesso ou erro -->
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-info">
+            @TempData["Message"]
+        </div>
+    }
 
-<form asp-action="Login" method="post">
-    <div>
-        <label asp-for="Email"></label>
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="RememberMe"></label>
-        <input asp-for="RememberMe" />
-    </div>
-    <button type="submit">Login</button>
-</form>
+    <form asp-action="Login" method="post" class="login-form" novalidate>
+        <div class="form-group">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" placeholder="Enter your email" autocomplete="email" required />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" autocomplete="current-password" required />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group form-check">
+            <input asp-for="RememberMe" class="form-check-input" />
+            <label asp-for="RememberMe" class="form-check-label">Remember Me</label>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+    </form>
 
-<a asp-action="Register">Don't have an account? Register</a>
+    <div class="register-link text-center">
+        <p>Don't have an account? <a asp-action="Register">Register here</a></p>
+    </div>
+</div>
