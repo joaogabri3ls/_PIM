@@ -42,14 +42,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Projetos/_PIM/_PIM/Views/Plantas/ListaPlantas.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhbnRhc1xMaXN0YVBsYW50YXMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Projetos/_PIM/_PIM/Views/Plantas/Sensores.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhbnRhc1xTZW5zb3Jlcy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Projetos/_PIM/_PIM/Views/Produto/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -66,6 +58,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Projetos/_PIM/_PIM/Views/Sensores/Sensor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2Vuc29yZXNcU2Vuc29yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Projetos/_PIM/_PIM/Views/Shared/AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEFkbWluTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -78,8 +74,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Projetos/_PIM/_PIM/Views/Weather/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2VhdGhlclxJbmRleC5jc2h0bWw=
+[D:/Projetos/_PIM/_PIM/Views/Venda/Detalhes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVuZGFcRGV0YWxoZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projetos/_PIM/_PIM/Views/Venda/FinalizarCompra.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVuZGFcRmluYWxpemFyQ29tcHJhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projetos/_PIM/_PIM/Views/_ViewImports.cshtml]

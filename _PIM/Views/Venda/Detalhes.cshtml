@@ -1,0 +1,36 @@
+﻿@model IEnumerable<_PIM.Models.Venda>
+
+@{
+    ViewData["Title"] = "Relatório de Vendas";
+}
+
+@foreach (var venda in Model)
+{
+    <p><strong>Cliente:</strong> @venda.User.UserName</p>
+    <p><strong>Data da Venda:</strong> @venda.DataVenda</p>
+    <p><strong>Método de Pagamento:</strong> @venda.MetodoPagamento</p>
+    <p><strong>Status de Envio:</strong> @venda.StatusEnvio</p>
+
+    <h3>Itens da Venda</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Preço Unitário</th>
+                <th>Quantidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in venda.ItensVenda)
+            {
+                <tr>
+                    <td>@item.Produto.Nome</td> 
+                    <td>@item.PrecoUnitario</td>
+                    <td>@item.Quantidade</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+

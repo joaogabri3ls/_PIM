@@ -1,0 +1,79 @@
+﻿.sensorContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+.culturaCard {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 10px;
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.progressBar {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to right, green 33%, orange 66%, red 100%);
+    border-radius: 10px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.level {
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
+    .level.ideal {
+        left: 0;
+        width: 33%;
+        background-color: green;
+    }
+
+    .level.high {
+        left: 33%;
+        width: 33%;
+        background-color: orange;
+    }
+
+    .level.veryHigh {
+        left: 66%;
+        width: 34%;
+        background-color: red;
+    }
+
+.currentValue {
+    position: absolute;
+    top: -5px;
+    width: 10px;
+    height: 30px;
+    background-color: black;
+    border-radius: 5px;
+    transition: left 0.3s ease;
+}
+
+.statusMessage {
+    font-weight: bold;
+    color: #333;
+}
+
+.TempSensor {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 10px;
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.CardTempSensor > p > i {
+    color: #007bff;
+}

@@ -14,6 +14,7 @@ D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.AspNetCore.Razor.Language.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Build.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Build.Framework.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Build.Locator.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -24,6 +25,8 @@ D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.CodeAnalysis.Features.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.CodeAnalysis.Razor.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.CodeAnalysis.Scripting.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Data.Sqlite.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.DiaSymReader.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.DotNet.Scaffolding.Shared.dll
@@ -32,7 +35,9 @@ D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstraction
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Sqlite.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Caching.Abstractions.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
@@ -41,6 +46,7 @@ D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.NET.StringTools.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
@@ -71,10 +77,14 @@ D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\System.Composition.Hosting.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\System.Composition.Runtime.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\System.Composition.TypedParts.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\System.Drawing.Common.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\System.IO.Pipelines.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\System.Reflection.MetadataLoadContext.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\System.Text.Encodings.Web.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\System.Text.Json.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\System.Windows.Extensions.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\af\Humanizer.resources.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\ar\Humanizer.resources.dll
@@ -215,6 +225,19 @@ D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.reso
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\browser-wasm\nativeassets\net8.0\e_sqlite3.a
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\linux-arm\native\libe_sqlite3.so
@@ -223,6 +246,7 @@ D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\linux-armel\native\libe_sqlite3.
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\linux-mips64\native\libe_sqlite3.so
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\linux-musl-arm\native\libe_sqlite3.so
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\linux-musl-arm64\native\libe_sqlite3.so
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\linux-musl-s390x\native\libe_sqlite3.so
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\linux-musl-x64\native\libe_sqlite3.so
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\linux-ppc64le\native\libe_sqlite3.so
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\linux-s390x\native\libe_sqlite3.so
@@ -238,6 +262,7 @@ D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
+D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 D:\Projetos\_PIM\_PIM\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
 D:\Projetos\_PIM\_PIM\obj\Debug\net8.0\_PIM.csproj.AssemblyReference.cache
 D:\Projetos\_PIM\_PIM\obj\Debug\net8.0\_PIM.GeneratedMSBuildEditorConfig.editorconfig

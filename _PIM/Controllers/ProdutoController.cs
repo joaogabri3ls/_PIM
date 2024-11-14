@@ -49,17 +49,43 @@ namespace _PIM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Preco,Quantidade,UrlImagem")] ProdutoModel produtoModel)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Preco,Quantidade")] ProdutoModel produtoModel, IFormFile Imagem)
         {
             if (ModelState.IsValid)
             {
+
+                if (Imagem != null && Imagem.Length > 0)
+                {
+                    var fileName = $"{Guid.NewGuid()}_{Imagem.FileName}";
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await Imagem.CopyToAsync(stream);
+                    }
+
+                    // Define o caminho da imagem no produto
+                    produtoModel.UrlImagem = $"/images/{fileName}";
+                }
+
                 _context.Produto.Add(produtoModel);
                 await _context.SaveChangesAsync();
                 TempData["SuccessMessage"] = "Produto criado com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
+            if (!ModelState.IsValid)
+            {
+                // Temporário para debug: imprime erros no ModelState
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error);
+                }
+            }
+
             return View(produtoModel);
         }
+
 
         public async Task<IActionResult> Edit(int? id)
         {

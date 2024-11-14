@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace _PIM.Views.Plantas
+namespace _PIM.Views.Vendas
 {
-    public class SensoresModel : PageModel
+    public class DetalhesModel : PageModel
     {
         public void OnGet()
         {

@@ -1,0 +1,130 @@
+﻿@model WeatherData
+@{
+    ViewData["Title"] = "Monitoramento de Sensores";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Sensores.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+}
+
+@{
+    var culturas = new[]
+    {
+        new { Nome = "Tomate", UmidadeIdeal = "60-80", Nutrientes = new { Nitrogênio = "40-60", Fósforo = "30-50", Potássio = "20-40" } },
+        new { Nome = "Alface", UmidadeIdeal = "70-85", Nutrientes = new { Nitrogênio = "35-55", Fósforo = "25-45", Potássio = "15-35" } },
+        new { Nome = "Rúcula", UmidadeIdeal = "65-80", Nutrientes = new { Nitrogênio = "30-50", Fósforo = "20-40", Potássio = "25-45" } },
+    };
+
+    Func<int, int, int> GerarValorAleatorio = (min, max) =>
+    {
+        var random = new Random();
+        return random.Next(min, max + 1); 
+    };
+
+    Func<int, string, string> VerificarStatus = (valor, faixaIdeal) =>
+    {
+        var faixas = faixaIdeal.Split('-');
+        var min = int.Parse(faixas[0]);
+        var max = int.Parse(faixas[1]);
+
+        if (valor < min) return "Muito baixo";
+        if (valor >= min && valor <= max) return "Ideal";
+        if (valor > max) return "Muito alto";
+        return "Indefinido";
+    };
+
+    Func<string, string> DefinirCor = (status) =>
+    {
+        if (status == "Ideal") return "text-success"; 
+        if (status == "Muito baixo" || status == "Muito alto") return "text-danger";
+        return "text-warning"; 
+    };
+
+    var umidadeSensor = new Dictionary<string, int>();
+    var nutrientesSensor = new Dictionary<string, Dictionary<string, int>>();
+
+    foreach (var cultura in culturas)
+    {
+        var umidadeFaixa = cultura.UmidadeIdeal.Split('-');
+        var umidadeValor = GerarValorAleatorio(int.Parse(umidadeFaixa[0]), int.Parse(umidadeFaixa[1]));
+        umidadeSensor[cultura.Nome] = umidadeValor;
+
+        var nutrientes = new Dictionary<string, int>
+        {
+            { "Nitrogênio", GerarValorAleatorio(int.Parse(cultura.Nutrientes.Nitrogênio.Split('-')[0]), int.Parse(cultura.Nutrientes.Nitrogênio.Split('-')[1])) },
+            { "Fósforo", GerarValorAleatorio(int.Parse(cultura.Nutrientes.Fósforo.Split('-')[0]), int.Parse(cultura.Nutrientes.Fósforo.Split('-')[1])) },
+            { "Potássio", GerarValorAleatorio(int.Parse(cultura.Nutrientes.Potássio.Split('-')[0]), int.Parse(cultura.Nutrientes.Potássio.Split('-')[1])) }
+        };
+
+        nutrientesSensor[cultura.Nome] = nutrientes;
+    }
+}
+
+<h1>Monitoramento de Sensores da Fazenda</h1>
+
+<div class="sensorContainer">
+
+    <div class="TempSensor">
+        @if (Model != null)
+        {
+            <div class="CardTempSensor">
+                <p><i class="bi bi-thermometer-half"></i> @Model.Main.Temp °C</p>
+                <p><i class="bi bi-droplet-fill"></i> @Model.Main.Humidity %</p>
+                <p><i class="bi bi-wind"></i> @Model.Wind.Speed km/h</p>
+            </div>
+        }
+        else
+        {
+            <p>Não foi possível obter os dados do clima.</p>
+        }
+    </div>
+    @foreach (var cultura in culturas)
+    {
+        var umidadeStatus = VerificarStatus(umidadeSensor[cultura.Nome], cultura.UmidadeIdeal);
+        var umidadeCor = DefinirCor(umidadeStatus);
+
+        <div class="culturaCard">
+            <h3>@cultura.Nome</h3>
+
+            <p>
+                <i class="bi bi-droplet @umidadeCor"></i>
+                <strong>Umidade:</strong> @umidadeSensor[cultura.Nome]%
+                <span class="@umidadeCor">@umidadeStatus</span>
+            </p>
+
+            @foreach (var nutriente in nutrientesSensor[cultura.Nome])
+            {
+                var faixaIdealNutriente = cultura.Nutrientes.GetType().GetProperty(nutriente.Key).GetValue(cultura.Nutrientes).ToString();
+                var nutrientesStatus = VerificarStatus(nutriente.Value, faixaIdealNutriente);
+                var nutrientesCor = DefinirCor(nutrientesStatus);
+
+                <p>
+                    <i class="bi bi-patch-check @nutrientesCor"></i>
+                    <strong>@nutriente.Key:</strong> @nutriente.Value ppm 
+                    <span class="@nutrientesCor">@nutrientesStatus</span>
+                </p>
+            }
+
+            @if (umidadeStatus == "Muito baixo" || umidadeStatus == "Muito alto" || nutrientesSensor[cultura.Nome].Any(n => VerificarStatus(n.Value, cultura.Nutrientes.GetType().GetProperty(n.Key).GetValue(cultura.Nutrientes).ToString()) == "Muito baixo" || VerificarStatus(n.Value, cultura.Nutrientes.GetType().GetProperty(n.Key).GetValue(cultura.Nutrientes).ToString()) == "Muito alto"))
+            {
+                <div class="alert alert-danger">
+                    <strong>Perigo:</strong> Um ou mais valores estão fora do intervalo ideal. Ação necessária!
+                </div>
+            }
+            else if (umidadeStatus != "Ideal" || nutrientesSensor[cultura.Nome].Any(n => VerificarStatus(n.Value, cultura.Nutrientes.GetType().GetProperty(n.Key).GetValue(cultura.Nutrientes).ToString()) != "Ideal"))
+            {
+                <div class="alert alert-warning">
+                    <strong>Atenção:</strong> Os valores estão fora do intervalo ideal, mas não extremos.
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-success">
+                    <strong>Sucesso:</strong> Todos os valores estão dentro do intervalo ideal.
+                </div>
+            }
+        </div>
+    }
+</div>

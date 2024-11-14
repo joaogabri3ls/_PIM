@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Adiciona os serviços ao contêiner.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-
+builder.Services.AddHttpClient<WeatherService>();
 // Configuração do serviço de banco de dados
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DbPath")));
@@ -23,6 +23,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     options.Password.RequiredLength = 6;
     options.Password.RequiredUniqueChars = 0;
 })
+
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
@@ -92,7 +93,7 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "dashboard_sensores",
     pattern: "Dashboard/Sensores",
-    defaults: new { controller = "Weather", action = "Index" });
+    defaults: new { controller = "Sensor", action = "Index" });
 
 app.MapControllerRoute(
     name: "entrar",
@@ -103,6 +104,24 @@ app.MapControllerRoute(
     name: "criar_conta",
     pattern: "CriarConta",
     defaults: new { controller = "Account", action = "Register" });
+
+app.MapControllerRoute(
+    name: "vendas",
+    pattern: "vendas", 
+    defaults: new { controller = "Venda", action = "FinalizarCompra" }); 
+
+app.MapControllerRoute(
+    name: "detalhes-venda",
+    pattern: "vendas/detalhes/{id}", 
+    defaults: new { controller = "Venda", action = "Detalhes" });
+
+app.MapControllerRoute(
+    name: "simular-envio",
+    pattern: "vendas/simularenvio/{id}",
+    defaults: new { controller = "Venda", action = "SimularEnvio" });
+
+
+
 
 // Rota padrão para controllers
 app.MapDefaultControllerRoute();

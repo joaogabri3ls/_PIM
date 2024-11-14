@@ -13,6 +13,7 @@
         <h1>Cultivarte</h1>
     </div>
     <div class="rightContent">
+
     @if (isAdmin)
     {
             <a asp-controller="Admin" asp-action="Index" style="background: white; color: #353535";>Dashboard</a>
@@ -40,7 +41,7 @@
         foreach (var item in Model)
         {
                     <div class="productCard">
-                        <img src="https://cdn.awsli.com.br/600x1000/1982/1982052/produto/174027508/53c931b15d.jpg" alt="@item.Nome" class="productImage" />
+                        <img src="@item.UrlImagem" alt="@item.Nome" class="productImage" />
                         <h2>@item.Nome</h2>
                         <p>Preço: R$ @item.Preco</p>
                         <form id="form-@item.Id" onsubmit="adicionarAoCarrinho(@item.Id, '@item.Nome', @item.Preco); return false;">
@@ -102,7 +103,7 @@ function atualizarCarrinho() {
 
         let img = document.createElement('img');
         img.classList.add('productImg');
-        img.src = "https://cdn.awsli.com.br/600x1000/1982/1982052/produto/174027508/53c931b15d.jpg";
+            img.src = item.imagemUrl;
         li.appendChild(img);
 
         let nome = document.createElement('span');

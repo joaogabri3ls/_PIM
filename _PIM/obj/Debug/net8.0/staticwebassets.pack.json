@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\_PIM.bundle.scp.css"
     },
     {
+      "Id": "D:\\Projetos\\_PIM\\_PIM\\wwwroot\\css\\Sensores.css",
+      "PackagePath": "staticwebassets\\css\\Sensores.css"
+    },
+    {
       "Id": "D:\\Projetos\\_PIM\\_PIM\\wwwroot\\css\\account.css",
       "PackagePath": "staticwebassets\\css\\account.css"
     },
@@ -27,6 +31,14 @@
     {
       "Id": "D:\\Projetos\\_PIM\\_PIM\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Projetos\\_PIM\\_PIM\\wwwroot\\images\\ace2c0b8-e396-488e-a37c-4edfa4816ee3_1839128[1]-1000x1000.jpg",
+      "PackagePath": "staticwebassets\\images\\ace2c0b8-e396-488e-a37c-4edfa4816ee3_1839128[1]-1000x1000.jpg"
+    },
+    {
+      "Id": "D:\\Projetos\\_PIM\\_PIM\\wwwroot\\images\\cc71e8c7-793e-483c-9679-47b329220e17_1839128[1]-1000x1000.jpg",
+      "PackagePath": "staticwebassets\\images\\cc71e8c7-793e-483c-9679-47b329220e17_1839128[1]-1000x1000.jpg"
     },
     {
       "Id": "D:\\Projetos\\_PIM\\_PIM\\wwwroot\\js\\site.js",
