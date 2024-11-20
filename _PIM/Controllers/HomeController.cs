@@ -1,4 +1,4 @@
-using _PIM.Data; 
+using _PIM.Data;
 using _PIM.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +19,7 @@ namespace _PIM.Controllers
             _context = context;
         }
 
- 
+
         public async Task<IActionResult> Index()
         {
 

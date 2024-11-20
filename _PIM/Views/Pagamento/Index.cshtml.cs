@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace _PIM.Views.Vendas
+namespace _PIM.Views.Pagamento
 {
-    public class DetalhesModel : PageModel
+    public class PagamentoModel : PageModel
     {
         public void OnGet()
         {

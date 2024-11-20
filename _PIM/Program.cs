@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddHttpClient<WeatherService>();
+
 // Configuração do serviço de banco de dados
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DbPath")));
@@ -23,9 +24,17 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     options.Password.RequiredLength = 6;
     options.Password.RequiredUniqueChars = 0;
 })
-
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
+
+// Adiciona suporte a sessões
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Tempo de expiração
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -71,8 +80,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+// Middleware de autenticação, autorização e sessão
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession(); // Ativação do suporte a sessões
 
 // Mapeamento de rotas
 app.MapControllerRoute(
@@ -106,22 +117,9 @@ app.MapControllerRoute(
     defaults: new { controller = "Account", action = "Register" });
 
 app.MapControllerRoute(
-    name: "vendas",
-    pattern: "vendas", 
-    defaults: new { controller = "Venda", action = "FinalizarCompra" }); 
-
-app.MapControllerRoute(
-    name: "detalhes-venda",
-    pattern: "vendas/detalhes/{id}", 
-    defaults: new { controller = "Venda", action = "Detalhes" });
-
-app.MapControllerRoute(
-    name: "simular-envio",
-    pattern: "vendas/simularenvio/{id}",
-    defaults: new { controller = "Venda", action = "SimularEnvio" });
-
-
-
+    name: "pagamento",
+    pattern: "pagamento",
+    defaults: new { controller = "Pagamento", action = "Index" });
 
 // Rota padrão para controllers
 app.MapDefaultControllerRoute();

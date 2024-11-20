@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _PIM.Data;
 using _PIM.Models;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace _PIM.Controllers
@@ -17,9 +19,10 @@ namespace _PIM.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(bool incluirInativos = false)
         {
             var produtos = await _context.Produto.ToListAsync();
+
             return View(produtos);
         }
 
@@ -33,6 +36,7 @@ namespace _PIM.Controllers
 
             var produtoModel = await _context.Produto
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (produtoModel == null)
             {
                 TempData["ErrorMessage"] = "Produto não encontrado.";
@@ -53,6 +57,10 @@ namespace _PIM.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (produtoModel.Quantidade <= 0)
+                {
+                    produtoModel.Ativo = false; 
+                }
 
                 if (Imagem != null && Imagem.Length > 0)
                 {
@@ -64,7 +72,6 @@ namespace _PIM.Controllers
                         await Imagem.CopyToAsync(stream);
                     }
 
-                    // Define o caminho da imagem no produto
                     produtoModel.UrlImagem = $"/images/{fileName}";
                 }
 
@@ -73,19 +80,9 @@ namespace _PIM.Controllers
                 TempData["SuccessMessage"] = "Produto criado com sucesso!";
                 return RedirectToAction(nameof(Index));
             }
-            if (!ModelState.IsValid)
-            {
-                // Temporário para debug: imprime erros no ModelState
-                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-                foreach (var error in errors)
-                {
-                    Console.WriteLine(error);
-                }
-            }
 
             return View(produtoModel);
         }
-
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -106,7 +103,7 @@ namespace _PIM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Preco,Quantidade,UrlImagem")] ProdutoModel produtoModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Preco,Quantidade,UrlImagem,Ativo")] ProdutoModel produtoModel)
         {
             if (id != produtoModel.Id)
             {
@@ -118,6 +115,8 @@ namespace _PIM.Controllers
             {
                 try
                 {
+                    produtoModel.Ativo = produtoModel.Quantidade > 0;
+
                     _context.Update(produtoModel);
                     await _context.SaveChangesAsync();
                     TempData["SuccessMessage"] = "Produto atualizado com sucesso!";
@@ -137,6 +136,22 @@ namespace _PIM.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(produtoModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AlterarStatus(int id, bool ativo)
+        {
+            var produto = await _context.Produto.FindAsync(id);
+            if (produto == null)
+            {
+                TempData["ErrorMessage"] = "Produto não encontrado.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            produto.Ativo = ativo;
+            await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = $"Produto {(ativo ? "ativado" : "desativado")} com sucesso!";
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Delete(int? id)

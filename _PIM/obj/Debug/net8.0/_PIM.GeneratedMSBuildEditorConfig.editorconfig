@@ -42,6 +42,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Projetos/_PIM/_PIM/Views/Pagamento/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnYW1lbnRvXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Projetos/_PIM/_PIM/Views/Produto/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -72,14 +76,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Projetos/_PIM/_PIM/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Projetos/_PIM/_PIM/Views/Venda/Detalhes.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVuZGFcRGV0YWxoZXMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Projetos/_PIM/_PIM/Views/Venda/FinalizarCompra.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVuZGFcRmluYWxpemFyQ29tcHJhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projetos/_PIM/_PIM/Views/_ViewImports.cshtml]

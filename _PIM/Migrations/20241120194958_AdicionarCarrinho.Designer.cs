@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _PIM.Data;
 
@@ -10,12 +11,41 @@ using _PIM.Data;
 namespace _PIM.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241120194958_AdicionarCarrinho")]
+    partial class AdicionarCarrinho
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
+
+            modelBuilder.Entity("ItemVenda", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("PrecoUnitario")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProdutoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("VendaId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.HasIndex("VendaId");
+
+                    b.ToTable("ItensVenda");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -220,12 +250,62 @@ namespace _PIM.Migrations
 
             modelBuilder.Entity("_PIM.Models.Carrinho", b =>
                 {
-                    b.Property<int>("CarrinhoId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("DataAdicao")
+                    b.Property<DateTime>("CriadoEm")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("Finalizado")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UsuarioId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Carrinhos");
+                });
+
+            modelBuilder.Entity("_PIM.Models.Endereco", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CEP")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Logradouro")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Enderecos");
+                });
+
+            modelBuilder.Entity("_PIM.Models.ItemCarrinho", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CarrinhoId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ProdutoId")
                         .HasColumnType("INTEGER");
@@ -233,17 +313,13 @@ namespace _PIM.Migrations
                     b.Property<int>("Quantidade")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("UsuarioId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.HasKey("Id");
 
-                    b.HasKey("CarrinhoId");
+                    b.HasIndex("CarrinhoId");
 
                     b.HasIndex("ProdutoId");
 
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("Carrinho");
+                    b.ToTable("ItemCarrinho");
                 });
 
             modelBuilder.Entity("_PIM.Models.ProdutoModel", b =>
@@ -274,11 +350,64 @@ namespace _PIM.Migrations
                     b.ToTable("Produto");
                 });
 
+            modelBuilder.Entity("_PIM.Models.Venda", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataVenda")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("EnderecoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("MetodoPagamento")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StatusEnvio")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EnderecoId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Vendas");
+                });
+
             modelBuilder.Entity("ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
+            modelBuilder.Entity("ItemVenda", b =>
+                {
+                    b.HasOne("_PIM.Models.ProdutoModel", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("_PIM.Models.Venda", "Venda")
+                        .WithMany("Itens")
+                        .HasForeignKey("VendaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Produto");
+
+                    b.Navigation("Venda");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -334,21 +463,61 @@ namespace _PIM.Migrations
 
             modelBuilder.Entity("_PIM.Models.Carrinho", b =>
                 {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("_PIM.Models.ItemCarrinho", b =>
+                {
+                    b.HasOne("_PIM.Models.Carrinho", "Carrinho")
+                        .WithMany("Itens")
+                        .HasForeignKey("CarrinhoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("_PIM.Models.ProdutoModel", "Produto")
                         .WithMany()
                         .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ApplicationUser", "Usuario")
+                    b.Navigation("Carrinho");
+
+                    b.Navigation("Produto");
+                });
+
+            modelBuilder.Entity("_PIM.Models.Venda", b =>
+                {
+                    b.HasOne("_PIM.Models.Endereco", "Endereco")
                         .WithMany()
-                        .HasForeignKey("UsuarioId")
+                        .HasForeignKey("EnderecoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Produto");
+                    b.HasOne("ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Usuario");
+                    b.Navigation("Endereco");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("_PIM.Models.Carrinho", b =>
+                {
+                    b.Navigation("Itens");
+                });
+
+            modelBuilder.Entity("_PIM.Models.Venda", b =>
+                {
+                    b.Navigation("Itens");
                 });
 #pragma warning restore 612, 618
         }

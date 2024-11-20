@@ -1,0 +1,140 @@
+﻿
+
+<div class="payment-container">
+    <h2>Resumo da Compra</h2>
+    <div id="paymentCartItems" class="payment-cart-items">
+        <!-- Itens do carrinho serão listados aqui -->
+    </div>
+
+    <h3>Endereço de Entrega</h3>
+    <form id="addressForm">
+        <label for="address">Endereço:</label>
+        <input type="text" id="address" name="address" required>
+        <label for="city">Cidade:</label>
+        <input type="text" id="city" name="city" required>
+        <label for="state">Estado:</label>
+        <input type="text" id="state" name="state" required>
+        <label for="zip">CEP:</label>
+        <input type="text" id="zip" name="zip" required>
+    </form>
+
+    <h3>Escolha o Método de Pagamento</h3>
+    <form id="paymentMethodForm">
+        <label>
+            <input type="radio" name="paymentMethod" value="cartao" required>
+            Cartão de Crédito
+        </label><br>
+        <label>
+            <input type="radio" name="paymentMethod" value="boleto" required>
+            Boleto Bancário
+        </label>
+    </form>
+
+    <div id="paymentSummary">
+        <h3>Total: <span id="totalPayment">R$ 0,00</span></h3>
+        <button type="button" onclick="finalizarPagamento()">Confirmar Compra</button>
+    </div>
+</div>
+
+<script>
+    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    function renderizarItensPagamento() {
+        const paymentCartItems = document.getElementById('paymentCartItems');
+        paymentCartItems.innerHTML = '';
+
+        carrinho.forEach(item => {
+            let itemDiv = document.createElement('div');
+            itemDiv.classList.add('payment-item');
+            itemDiv.innerHTML = `
+                <img src="${item.imagemUrl}" alt="${item.nomeProduto}" class="productImg">
+                <span class="productName">${item.nomeProduto}</span>
+                <span class="productQuantity">Qtd: ${item.quantidade}</span>
+                <span class="productPrice">R$ ${item.precoProduto.toFixed(2)}</span>
+            `;
+            paymentCartItems.appendChild(itemDiv);
+        });
+
+        atualizarTotalPagamento();
+    }
+
+    function atualizarTotalPagamento() {
+        let total = carrinho.reduce((sum, item) => sum + item.precoProduto * item.quantidade, 0);
+        document.getElementById('totalPayment').textContent = `R$ ${total.toFixed(2)}`;
+    }
+
+    function finalizarPagamento() {
+        const endereco = document.getElementById('address').value;
+        const cidade = document.getElementById('city').value;
+        const estado = document.getElementById('state').value;
+        const cep = document.getElementById('zip').value;
+        const metodoPagamento = document.querySelector('input[name="paymentMethod"]:checked');
+
+        if (!metodoPagamento) {
+            alert('Selecione um método de pagamento.');
+            return;
+        }
+
+        alert(`Compra finalizada!\nEndereço: ${endereco}, ${cidade}, ${estado}, ${cep}\nMétodo de Pagamento: ${metodoPagamento.value}`);
+
+        localStorage.removeItem('carrinho');
+        window.location.href = '/';  // Redireciona para a página inicial
+    }
+
+    window.onload = renderizarItensPagamento;
+</script>
+
+<style>
+    .payment-container {
+        padding: 20px;
+        width: 80%;
+        margin: 0 auto;
+        font-family: Arial, sans-serif;
+    }
+
+    .payment-cart-items {
+        margin-bottom: 20px;
+    }
+
+    .payment-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .productImg {
+        width: 50px;
+        height: 50px;
+        margin-right: 15px;
+    }
+
+    .productName, .productQuantity, .productPrice {
+        margin-right: 15px;
+    }
+
+    form {
+        margin-bottom: 20px;
+    }
+
+    form input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+    }
+
+    #paymentSummary {
+        margin-top: 30px;
+    }
+
+    button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>

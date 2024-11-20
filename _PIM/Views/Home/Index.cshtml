@@ -4,8 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var isAdmin = User.IsInRole("Admin");
 }
+
 @section Styles {
-        <link rel="stylesheet" href="~/css/home.css" />
+    <link rel="stylesheet" href="~/css/home.css" />
 }
 
 <header>
@@ -13,15 +14,14 @@
         <h1>Cultivarte</h1>
     </div>
     <div class="rightContent">
-
-    @if (isAdmin)
-    {
-            <a asp-controller="Admin" asp-action="Index" style="background: white; color: #353535";>Dashboard</a>
-    }
-    <div class="cart" onclick="abrirCarrinho()">
-        <i class="bi bi-bag-fill"></i>
-        <span>0</span>
-    </div>
+        @if (isAdmin)
+        {
+            <a asp-controller="Admin" asp-action="Index" style="background: white; color: #353535" ;>Dashboard</a>
+        }
+        <div class="cart" onclick="abrirCarrinho()">
+            <i class="bi bi-bag-fill"></i>
+            <span id="cartCount">0</span> <!-- Exibe a quantidade de itens no carrinho -->
+        </div>
     </div>
 </header>
 
@@ -40,150 +40,184 @@
     {
         foreach (var item in Model)
         {
-                    <div class="productCard">
-                        <img src="@item.UrlImagem" alt="@item.Nome" class="productImage" />
-                        <h2>@item.Nome</h2>
-                        <p>Preço: R$ @item.Preco</p>
-                        <form id="form-@item.Id" onsubmit="adicionarAoCarrinho(@item.Id, '@item.Nome', @item.Preco); return false;">
-                            <button type="submit" class="buyButton">Comprar</button>
-                        </form>
-                    </div>
+            <div class="productCard">
+                <img src="@item.UrlImagem" alt="@item.Nome" class="productImage" />
+                <h2>@item.Nome</h2>
+                <p>Preço: R$ @item.Preco</p>
+                <button class="buyButton" onclick="adicionarAoCarrinho('@item.Id', '@item.Nome', @item.Preco)">Comprar</button>
+            </div>
         }
     }
     else
     {
-            <p>Nenhum produto encontrado.</p>
+        <p>Nenhum produto encontrado.</p>
     }
 </div>
 
 <script>
-let carrinho = [];
-let totalItensCarrinho = 0;
+    let carrinho = [];
+    let totalItensCarrinho = 0;
 
-function adicionarAoCarrinho(produtoId, nomeProduto, precoProduto) {
-    precoProduto = parseFloat(precoProduto);
-    if (isNaN(precoProduto)) {
-        alert('Preço do produto é inválido.');
-        return;
+    // Função para alternar a visibilidade do menu lateral do carrinho
+    function toggleCart() {
+        const cartSidebar = document.getElementById('cartSidebar');
+        cartSidebar.classList.toggle('active');
     }
 
-    let produtoExistente = carrinho.find(item => item.produtoId === produtoId);
+    // Adiciona produto ao carrinho
+    function adicionarAoCarrinho(produtoId, nomeProduto, precoProduto, imagemUrl) {
+        precoProduto = parseFloat(precoProduto);
+        if (isNaN(precoProduto)) {
+            alert('Preço do produto é inválido.');
+            return;
+        }
 
-    if (produtoExistente) {
-        alert('O produto "' + nomeProduto + '" já foi adicionado ao carrinho.');
-    } else {
-        carrinho.push({ produtoId, nomeProduto, precoProduto, quantidade: 1 });
-        totalItensCarrinho++;
+        let produtoExistente = carrinho.find(item => item.produtoId === produtoId);
+
+        if (produtoExistente) {
+            produtoExistente.quantidade++;
+        } else {
+            carrinho.push({ produtoId, nomeProduto, precoProduto, quantidade: 1, imagemUrl });
+        }
+
+        totalItensCarrinho = carrinho.length;
         document.querySelector('.cart span').textContent = totalItensCarrinho;
         atualizarCarrinho();
+
+        // Salvar carrinho no localStorage
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
         alert('Produto "' + nomeProduto + '" adicionado ao carrinho.');
     }
-}
 
-function removerDoCarrinho(produtoId) {
-    carrinho = carrinho.filter(item => item.produtoId !== produtoId);
-    totalItensCarrinho--;
-    document.querySelector('.cart span').textContent = totalItensCarrinho;
-    atualizarCarrinho();
-}
+    // Atualiza os itens do carrinho na página
+    function atualizarCarrinho() {
+        let cartItems = document.getElementById('cartItems');
+        cartItems.innerHTML = '';
 
-function atualizarCarrinho() {
-    let cartItems = document.getElementById('cartItems');
-    cartItems.innerHTML = '';
+        carrinho.forEach(item => {
+            let li = document.createElement('li');
+            li.classList.add('cartItem');
 
-    carrinho.forEach(item => {
-        let li = document.createElement('li');
-        li.classList.add('cartItem');
+            let removeBtn = document.createElement('button');
+            removeBtn.classList.add('removeBtn');
+            removeBtn.textContent = 'X';
+            removeBtn.onclick = () => removerDoCarrinho(item.produtoId);
+            li.appendChild(removeBtn);
 
-        let removeBtn = document.createElement('button');
-        removeBtn.classList.add('removeBtn');
-        removeBtn.textContent = 'X';
-        removeBtn.onclick = () => removerDoCarrinho(item.produtoId);
-        li.appendChild(removeBtn);
-
-        let img = document.createElement('img');
-        img.classList.add('productImg');
+            let img = document.createElement('img');
+            img.classList.add('productImg');
             img.src = item.imagemUrl;
-        li.appendChild(img);
+            li.appendChild(img);
 
-        let nome = document.createElement('span');
-        nome.classList.add('productName');
-        nome.textContent = item.nomeProduto;
-        li.appendChild(nome);
+            let nome = document.createElement('span');
+            nome.classList.add('productName');
+            nome.textContent = item.nomeProduto;
+            li.appendChild(nome);
 
-        let qtdDiv = document.createElement('div');
-        qtdDiv.classList.add('quantityContainer');
+            let qtdDiv = document.createElement('div');
+            qtdDiv.classList.add('quantityContainer');
 
-        let btnMenos = document.createElement('button');
-        btnMenos.classList.add('quantityButton');
-        btnMenos.textContent = '-';
-        btnMenos.onclick = () => alterarQuantidade(item.produtoId, -1);
-        qtdDiv.appendChild(btnMenos);
+            let btnMenos = document.createElement('button');
+            btnMenos.classList.add('quantityButton');
+            btnMenos.textContent = '-';
+            btnMenos.onclick = () => alterarQuantidade(item.produtoId, -1);
+            qtdDiv.appendChild(btnMenos);
 
-        let qtd = document.createElement('span');
-        qtd.classList.add('quantityDisplay');
-        qtd.textContent = item.quantidade;
-        qtdDiv.appendChild(qtd);
+            let qtd = document.createElement('span');
+            qtd.classList.add('quantityDisplay');
+            qtd.textContent = item.quantidade;
+            qtdDiv.appendChild(qtd);
 
-        let btnMais = document.createElement('button');
-        btnMais.classList.add('quantityButton');
-        btnMais.textContent = '+';
-        btnMais.onclick = () => alterarQuantidade(item.produtoId, 1);
-        qtdDiv.appendChild(btnMais);
+            let btnMais = document.createElement('button');
+            btnMais.classList.add('quantityButton');
+            btnMais.textContent = '+';
+            btnMais.onclick = () => alterarQuantidade(item.produtoId, 1);
+            qtdDiv.appendChild(btnMais);
 
-        li.appendChild(qtdDiv);
+            li.appendChild(qtdDiv);
 
-        let preco = document.createElement('span');
-        preco.classList.add('priceDisplay');
-        preco.textContent = 'R$ ' + item.precoProduto.toFixed(2);
-        li.appendChild(preco);
+            let preco = document.createElement('span');
+            preco.classList.add('priceDisplay');
+            preco.textContent = 'R$ ' + item.precoProduto.toFixed(2);
+            li.appendChild(preco);
 
-        cartItems.appendChild(li);
-    });
+            cartItems.appendChild(li);
+        });
 
-    calcularTotalCarrinho();
-}
+        calcularTotalCarrinho();
+    }
 
-function alterarQuantidade(produtoId, valor) {
-    let produto = carrinho.find(item => item.produtoId === produtoId);
-    if (produto) {
-        produto.quantidade += valor;
-        if (produto.quantidade <= 0) {
-            removerDoCarrinho(produtoId);
-        } else {
-            atualizarCarrinho();
+    // Alterar a quantidade de um item
+    function alterarQuantidade(produtoId, valor) {
+        let produto = carrinho.find(item => item.produtoId === produtoId);
+        if (produto) {
+            produto.quantidade += valor;
+            if (produto.quantidade <= 0) {
+                removerDoCarrinho(produtoId);
+            } else {
+                atualizarCarrinho();
+            }
         }
     }
-}
 
-function calcularTotalCarrinho() {
-    let total = carrinho.reduce((sum, item) => sum + item.precoProduto * item.quantidade, 0);
-    document.getElementById('totalCart').textContent = 'Total: R$ ' + total.toFixed(2);
-    return total;
-}
-
-function finalizarCompra() {
-    if (carrinho.length === 0) {
-        alert('O carrinho está vazio.');
-        return;
+    // Calcular o total do carrinho
+    function calcularTotalCarrinho() {
+        let total = carrinho.reduce((sum, item) => sum + item.precoProduto * item.quantidade, 0);
+        document.getElementById('totalCart').textContent = 'Total: R$ ' + total.toFixed(2);
+        return total;
     }
 
-    let total = calcularTotalCarrinho();
-    alert('Compra finalizada! Total: R$ ' + total.toFixed(2));
+    // Remover item do carrinho
+    function removerDoCarrinho(produtoId) {
+        carrinho = carrinho.filter(item => item.produtoId !== produtoId);
+        totalItensCarrinho = carrinho.length;
+        document.querySelector('.cart span').textContent = totalItensCarrinho;
+        atualizarCarrinho();
 
-    carrinho = [];
-    totalItensCarrinho = 0;
-    document.querySelector('.cart span').textContent = totalItensCarrinho;
-    atualizarCarrinho();
-    fecharCarrinho();
-}
+        // Salvar carrinho atualizado no localStorage
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    }
 
-function abrirCarrinho() {
-    document.getElementById('cartMenu').style.width = "450px";
-}
+    // Finalizar compra e enviar para o backend
+    function finalizarCompra() {
+        if (carrinho.length === 0) {
+            alert('O carrinho está vazio.');
+            return;
+        }
 
-function fecharCarrinho() {
-    document.getElementById('cartMenu').style.width = "0";
-}
+        let total = calcularTotalCarrinho();
 
+        // Enviar carrinho para o servidor (ASP.NET)
+        fetch('/Carrinho/Pagamento', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(carrinho)
+        })
+            .then(response => response.json())
+            .then(data => {
+                window.location.href = '/Carrinho/Pagamento';  // Redireciona para a página de pagamento
+            })
+            .catch(error => console.error('Erro ao salvar carrinho:', error));
+    }
+
+    // Carregar carrinho salvo no localStorage quando a página carregar
+    window.onload = function () {
+        let carrinhoSalvo = localStorage.getItem('carrinho');
+        if (carrinhoSalvo) {
+            carrinho = JSON.parse(carrinhoSalvo);
+            totalItensCarrinho = carrinho.length;
+            document.querySelector('.cart span').textContent = totalItensCarrinho;
+            atualizarCarrinho();
+        }
+    };
+
+    function abrirCarrinho() {
+        document.getElementById('cartMenu').style.width = "450px";
+    }
+
+    function fecharCarrinho() {
+        document.getElementById('cartMenu').style.width = "0";
+    }
 </script>

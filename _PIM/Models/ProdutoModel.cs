@@ -25,5 +25,9 @@ namespace _PIM.Models
 
         [Display(Name = "Imagem do Produto")]
         public string? UrlImagem { get; set; }
+
+        public bool Ativo { get; set; } = true;
+
+
     }
 }
