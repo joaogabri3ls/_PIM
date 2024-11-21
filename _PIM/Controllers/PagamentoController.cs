@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using _PIM.Models;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace SeuProjeto.Controllers
 {
@@ -6,7 +8,12 @@ namespace SeuProjeto.Controllers
     {
         public IActionResult Index()
         {
-            return View(); 
+            var carrinhoJson = TempData["Carrinho"] as string;
+            var carrinho = string.IsNullOrEmpty(carrinhoJson)
+                ? new List<ItemCarrinho>()
+                : JsonConvert.DeserializeObject<List<ItemCarrinho>>(carrinhoJson);
+
+            return View(carrinho);
         }
     }
 }

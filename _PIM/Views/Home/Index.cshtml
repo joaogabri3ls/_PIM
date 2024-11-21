@@ -20,7 +20,7 @@
         }
         <div class="cart" onclick="abrirCarrinho()">
             <i class="bi bi-bag-fill"></i>
-            <span id="cartCount">0</span> <!-- Exibe a quantidade de itens no carrinho -->
+            <span id="cartCount">0</span> 
         </div>
     </div>
 </header>
@@ -31,7 +31,7 @@
     <ul id="cartItems"></ul>
     <div id="cartFooter" class="cartFooter">
         <span id="totalCart" class="totalDisplay">Total: R$ 0.00</span>
-        <button onclick="finalizarCompra()" class="finalizeButton">Finalizar Compra</button>
+        <a href="javascript:void(0)" onclick="finalizarCompra()" class="finalizeButton">Finalizar Compra</a>
     </div>
 </div>
 
@@ -58,19 +58,14 @@
     let carrinho = [];
     let totalItensCarrinho = 0;
 
-    // Função para alternar a visibilidade do menu lateral do carrinho
     function toggleCart() {
         const cartSidebar = document.getElementById('cartSidebar');
         cartSidebar.classList.toggle('active');
     }
 
-    // Adiciona produto ao carrinho
     function adicionarAoCarrinho(produtoId, nomeProduto, precoProduto, imagemUrl) {
         precoProduto = parseFloat(precoProduto);
-        if (isNaN(precoProduto)) {
-            alert('Preço do produto é inválido.');
-            return;
-        }
+
 
         let produtoExistente = carrinho.find(item => item.produtoId === produtoId);
 
@@ -83,51 +78,55 @@
         totalItensCarrinho = carrinho.length;
         document.querySelector('.cart span').textContent = totalItensCarrinho;
         atualizarCarrinho();
-
-        // Salvar carrinho no localStorage
         localStorage.setItem('carrinho', JSON.stringify(carrinho));
         alert('Produto "' + nomeProduto + '" adicionado ao carrinho.');
     }
 
-    // Atualiza os itens do carrinho na página
     function atualizarCarrinho() {
         let cartItems = document.getElementById('cartItems');
-        cartItems.innerHTML = '';
+        cartItems.innerHTML = '';  // Limpar o conteúdo da lista
 
         carrinho.forEach(item => {
             let li = document.createElement('li');
             li.classList.add('cartItem');
 
+            // Botão de remoção
             let removeBtn = document.createElement('button');
             removeBtn.classList.add('removeBtn');
             removeBtn.textContent = 'X';
             removeBtn.onclick = () => removerDoCarrinho(item.produtoId);
             li.appendChild(removeBtn);
 
+            // Imagem do produto
             let img = document.createElement('img');
             img.classList.add('productImg');
             img.src = item.imagemUrl;
             li.appendChild(img);
 
+            // Nome do produto
             let nome = document.createElement('span');
             nome.classList.add('productName');
             nome.textContent = item.nomeProduto;
             li.appendChild(nome);
 
+            // Container de quantidade
             let qtdDiv = document.createElement('div');
             qtdDiv.classList.add('quantityContainer');
 
+            // Botão de diminuir a quantidade
             let btnMenos = document.createElement('button');
             btnMenos.classList.add('quantityButton');
             btnMenos.textContent = '-';
             btnMenos.onclick = () => alterarQuantidade(item.produtoId, -1);
             qtdDiv.appendChild(btnMenos);
 
+            // Exibição da quantidade
             let qtd = document.createElement('span');
             qtd.classList.add('quantityDisplay');
             qtd.textContent = item.quantidade;
             qtdDiv.appendChild(qtd);
 
+            // Botão de aumentar a quantidade
             let btnMais = document.createElement('button');
             btnMais.classList.add('quantityButton');
             btnMais.textContent = '+';
@@ -136,6 +135,7 @@
 
             li.appendChild(qtdDiv);
 
+            // Exibição do preço
             let preco = document.createElement('span');
             preco.classList.add('priceDisplay');
             preco.textContent = 'R$ ' + item.precoProduto.toFixed(2);
@@ -147,47 +147,43 @@
         calcularTotalCarrinho();
     }
 
-    // Alterar a quantidade de um item
-    function alterarQuantidade(produtoId, valor) {
-        let produto = carrinho.find(item => item.produtoId === produtoId);
-        if (produto) {
-            produto.quantidade += valor;
-            if (produto.quantidade <= 0) {
-                removerDoCarrinho(produtoId);
-            } else {
-                atualizarCarrinho();
-            }
+    function alterarQuantidade(produtoId, quantidadeAlterada) {
+        let item = carrinho.find(item => item.produtoId === produtoId);
+
+        if (item) {
+            item.quantidade = Math.max(1, item.quantidade + quantidadeAlterada);
         }
+
+        atualizarCarrinho();
+
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
     }
 
-    // Calcular o total do carrinho
     function calcularTotalCarrinho() {
-        let total = carrinho.reduce((sum, item) => sum + item.precoProduto * item.quantidade, 0);
-        document.getElementById('totalCart').textContent = 'Total: R$ ' + total.toFixed(2);
-        return total;
+        let total = 0;
+
+        carrinho.forEach(item => {
+            total += item.precoProduto * item.quantidade;
+        });
+
+        let totalDiv = document.getElementById('totalCart');
+        totalDiv.textContent = 'Total: R$ ' + total.toFixed(2);
     }
 
-    // Remover item do carrinho
     function removerDoCarrinho(produtoId) {
         carrinho = carrinho.filter(item => item.produtoId !== produtoId);
         totalItensCarrinho = carrinho.length;
         document.querySelector('.cart span').textContent = totalItensCarrinho;
         atualizarCarrinho();
-
-        // Salvar carrinho atualizado no localStorage
         localStorage.setItem('carrinho', JSON.stringify(carrinho));
     }
 
-    // Finalizar compra e enviar para o backend
     function finalizarCompra() {
         if (carrinho.length === 0) {
             alert('O carrinho está vazio.');
             return;
         }
 
-        let total = calcularTotalCarrinho();
-
-        // Enviar carrinho para o servidor (ASP.NET)
         fetch('/Carrinho/Pagamento', {
             method: 'POST',
             headers: {
@@ -195,14 +191,20 @@
             },
             body: JSON.stringify(carrinho)
         })
-            .then(response => response.json())
-            .then(data => {
-                window.location.href = '/Carrinho/Pagamento';  // Redireciona para a página de pagamento
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/Pagamento/Index';
+                } else {
+                    console.error('Erro ao salvar carrinho:', response.statusText);
+                    alert('Ocorreu um erro ao finalizar a compra.');
+                }
             })
-            .catch(error => console.error('Erro ao salvar carrinho:', error));
+            .catch(error => {
+                console.error('Erro ao salvar carrinho:', error);
+                alert('Ocorreu um erro ao finalizar a compra.');
+            });
     }
 
-    // Carregar carrinho salvo no localStorage quando a página carregar
     window.onload = function () {
         let carrinhoSalvo = localStorage.getItem('carrinho');
         if (carrinhoSalvo) {
@@ -221,3 +223,6 @@
         document.getElementById('cartMenu').style.width = "0";
     }
 </script>
+
+
+

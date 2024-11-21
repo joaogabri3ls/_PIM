@@ -12,6 +12,9 @@ public class CarrinhoController : Controller
         {
             return RedirectToAction("Index", "Home");
         }
-        return View(carrinho); 
+
+        TempData["Carrinho"] = JsonConvert.SerializeObject(carrinho);
+
+        return RedirectToAction("Index", "Pagamento");
     }
 }

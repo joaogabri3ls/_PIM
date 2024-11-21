@@ -21,12 +21,16 @@
     <h3>Escolha o Método de Pagamento</h3>
     <form id="paymentMethodForm">
         <label>
-            <input type="radio" name="paymentMethod" value="cartao" required>
+            <input type="radio" name="paymentMethod" value="cartao_credito" required>
             Cartão de Crédito
         </label><br>
         <label>
-            <input type="radio" name="paymentMethod" value="boleto" required>
-            Boleto Bancário
+            <input type="radio" name="paymentMethod" value="cartao_debito" required>
+            Cartão de Débito
+        </label><br>
+        <label>
+            <input type="radio" name="paymentMethod" value="pix" required>
+            Pix
         </label>
     </form>
 
@@ -63,23 +67,51 @@
         document.getElementById('totalPayment').textContent = `R$ ${total.toFixed(2)}`;
     }
 
-    function finalizarPagamento() {
-        const endereco = document.getElementById('address').value;
-        const cidade = document.getElementById('city').value;
-        const estado = document.getElementById('state').value;
-        const cep = document.getElementById('zip').value;
-        const metodoPagamento = document.querySelector('input[name="paymentMethod"]:checked');
+function finalizarPagamento() {
+    const endereco = document.getElementById('address').value;
+    const cidade = document.getElementById('city').value;
+    const estado = document.getElementById('state').value;
+    const cep = document.getElementById('zip').value;
+    const metodoPagamento = document.querySelector('input[name="paymentMethod"]:checked').value;
 
-        if (!metodoPagamento) {
-            alert('Selecione um método de pagamento.');
-            return;
-        }
+    // Montar o objeto de venda
+    const venda = {
+        endereco,
+        cidade,
+        estado,
+        cep,
+        metodoPagamento,
+        itensVenda: carrinho.map(item => ({
+            produtoId: item.id,
+            quantidade: item.quantidade,
+            precoUnitario: item.precoProduto
+        }))
+    };
 
-        alert(`Compra finalizada!\nEndereço: ${endereco}, ${cidade}, ${estado}, ${cep}\nMétodo de Pagamento: ${metodoPagamento.value}`);
+    // Enviar para o backend
+    fetch('/api/vendas', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(venda)
+    })
+        .then(response => {
+            if (response.ok) {
+                alert('Compra finalizada com sucesso!');
+                localStorage.removeItem('carrinho');
+                window.location.href = '/';
+            } else {
+                return response.json().then(data => {
+                    throw new Error(data.message || 'Erro ao finalizar a venda.');
+                });
+            }
+        })
+        .catch(error => {
+            alert(`Erro: ${error.message}`);
+        });
+}
 
-        localStorage.removeItem('carrinho');
-        window.location.href = '/';  // Redireciona para a página inicial
-    }
 
     window.onload = renderizarItensPagamento;
 </script>
