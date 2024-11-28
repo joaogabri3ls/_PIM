@@ -1,27 +1,202 @@
-﻿button {
-    border: none;
-    background-color: #007bff;
-    border-radius: 5px;
-    padding: 6px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    text-decoration: none;
-    color: white;
-}
-
-p {
+﻿/* Corpo e Fundo */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f7fa;
+    color: #333;
     margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    transition: background 0.3s ease-in-out;
 }
 
-button:hover {
-    background-color: #009afff2;
+/* Títulos */
+h1, h2, h3 {
+    font-weight: 700;
+    text-align: center;
+    color: #0066cc;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
-td>a {
-    background-color: #007bff;
+    h1:hover, h2:hover, h3:hover {
+        color: #0056b3; 
+        transform: scale(1.05); 
+    }
+
+/* Botões */
+button {
+    background: #007bff; 
+    border: none;
+    border-radius: 30px; 
+    padding: 12px 30px; 
     color: white;
-    width: 20px;
-    height: 20px;
-    padding: 5px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); 
+    outline: none; 
 }
 
+    button:hover {
+        background: #0056b3;
+        transform: translateY(-4px); 
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        filter: brightness(1.1);
+    }
+
+    button:active {
+        transform: translateY(2px); 
+        filter: brightness(0.9);
+    }
+
+/* Campos de formulário */
+input, select, textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px; 
+    background-color: #f8f9fa;
+    font-size: 16px;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+    input:focus, select:focus, textarea:focus {
+        border-color: #0066cc;
+        box-shadow: 0 0 10px rgba(0, 102, 204, 0.3);
+        outline: none; 
+    }
+
+/* Links em Tabelas */
+td > a {
+    display: inline-block;
+    background: #28a745;
+    color: white;
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 48px;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, scale 0.2s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+    td > a:hover {
+        background: #218838;
+        transform: scale(1.15);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+/* Tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, background 0.3s ease;
+}
+
+    table:hover {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+th, td {
+    padding: 18px;
+    text-align: center;
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+    transition: background 0.3s ease;
+}
+
+th {
+    background: #007bff;
+    color: white;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+td {
+    background: #f8f9fa;
+}
+
+    td:hover {
+        background: #e9ecef;
+        transform: scale(1.02);
+    }
+
+/* Rodapé */
+footer {
+    background: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 30px;
+    font-size: 16px;
+    border-top: 1px solid #ddd;
+    transition: background 0.3s ease;
+}
+
+    footer:hover {
+        background: #23272b; 
+    }
+
+    footer a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+        footer a:hover {
+            color: #0056b3;
+            transform: scale(1.1);
+        }
+
+/* Media Queries para responsividade */
+@media (max-width: 768px) {
+    h1, h2, h3 {
+        font-size: 26px;
+    }
+
+    button {
+        padding: 10px 24px;
+        font-size: 15px;
+    }
+
+    input, select, textarea {
+        padding: 14px;
+        font-size: 15px;
+    }
+
+    footer {
+        padding: 25px;
+        font-size: 15px;
+    }
+
+    table {
+        margin: 20px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    h1, h2, h3 {
+        font-size: 22px; 
+    }
+
+    button {
+        padding: 8px 20px; 
+        font-size: 14px;
+    }
+
+    input, select, textarea {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
