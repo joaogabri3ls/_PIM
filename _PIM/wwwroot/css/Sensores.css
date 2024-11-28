@@ -1,79 +1,193 @@
-﻿.sensorContainer {
+﻿/* Contêiner geral dos sensores */
+.sensorContainer {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-family: Arial, sans-serif;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: 'Roboto', sans-serif;
+    gap: 20px;
+    padding: 40px 20px;
+    background: #f9f9f9;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
+/* Estilo do card */
 .culturaCard {
-    background-color: #f9f9f9;
+    background-color: #fff;
     border: 1px solid #ddd;
     padding: 20px;
-    margin: 10px;
-    width: 300px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 15px;
+    width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
 }
 
+    .culturaCard:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        filter: brightness(1.05);
+    }
+
+    .culturaCard h3 {
+        font-size: 1.2rem;
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .culturaCard p {
+        font-size: 0.95rem;
+        color: #555;
+        margin-bottom: 12px;
+        line-height: 1.4;
+    }
+
+/* Barra de progresso */
 .progressBar {
     position: relative;
     width: 100%;
-    height: 20px;
-    background: linear-gradient(to right, green 33%, orange 66%, red 100%);
-    border-radius: 10px;
+    height: 16px;
+    background: #e0e0e0;
+    border-radius: 12px;
     margin: 10px 0;
     overflow: hidden;
+    transition: background-color 0.3s ease;
 }
 
 .level {
     height: 100%;
     position: absolute;
     top: 0;
+    transition: width 0.4s ease;
 }
 
     .level.ideal {
         left: 0;
         width: 33%;
-        background-color: green;
+        background-color: #8bc34a;
     }
 
     .level.high {
         left: 33%;
         width: 33%;
-        background-color: orange;
+        background-color: #ffb74d;
     }
 
     .level.veryHigh {
         left: 66%;
         width: 34%;
-        background-color: red;
+        background-color: #f44336;
     }
 
 .currentValue {
     position: absolute;
-    top: -5px;
-    width: 10px;
-    height: 30px;
-    background-color: black;
-    border-radius: 5px;
+    top: -8px;
+    width: 22px;
+    height: 22px;
+    background-color: #2196f3;
+    border-radius: 50%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
     transition: left 0.3s ease;
 }
 
+/* Mensagens de status */
 .statusMessage {
-    font-weight: bold;
-    color: #333;
+    font-weight: 600;
+    color: #555;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 6px 12px;
+    margin-top: 10px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    transition: color 0.3s ease, background-color 0.3s ease;
 }
 
+    .statusMessage:hover {
+        color: #2196F3;
+        background-color: rgba(0, 0, 0, 0.08);
+    }
+
+/* Card do sensor de temperatura */
 .TempSensor {
-    background-color: #f9f9f9;
+    background-color: #fff;
     border: 1px solid #ddd;
     padding: 20px;
-    margin: 10px;
-    width: 300px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 15px;
+    width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
 }
 
+    .TempSensor:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        filter: brightness(1.05);
+    }
+
+/* Ícones de temperatura */
 .CardTempSensor > p > i {
-    color: #007bff;
+    color: #2196F3;
+    font-size: 2.2rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    margin-bottom: 15px;
+}
+
+    .CardTempSensor > p > i:hover {
+        transform: scale(1.15);
+        color: #FF5722;
+    }
+
+/* Animação de fade-in para os elementos */
+.culturaCard, .TempSensor {
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ajustes para telas pequenas */
+@media (max-width: 768px) {
+    .sensorContainer {
+        padding: 30px 10px;
+    }
+
+    .culturaCard, .TempSensor {
+        width: 100%;
+        max-width: 320px;
+        margin: 10px auto;
+    }
+
+    .progressBar {
+        height: 12px;
+    }
+
+    .currentValue {
+        width: 18px;
+        height: 18px;
+    }
+
+    .statusMessage {
+        font-size: 0.85rem;
+        padding: 4px 10px;
+    }
 }
