@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\_PIM\\_PIM\\_PIM.csproj": {}
+    "D:\\Projetos\\_PIM\\_PIM\\_PIM.csproj": {}
   },
   "projects": {
-    "D:\\_PIM\\_PIM\\_PIM.csproj": {
+    "D:\\Projetos\\_PIM\\_PIM\\_PIM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\_PIM\\_PIM\\_PIM.csproj",
+        "projectUniqueName": "D:\\Projetos\\_PIM\\_PIM\\_PIM.csproj",
         "projectName": "_PIM",
-        "projectPath": "D:\\_PIM\\_PIM\\_PIM.csproj",
-        "packagesPath": "C:\\Users\\lipeb\\.nuget\\packages\\",
-        "outputPath": "D:\\_PIM\\_PIM\\obj\\",
+        "projectPath": "D:\\Projetos\\_PIM\\_PIM\\_PIM.csproj",
+        "packagesPath": "C:\\Users\\jgabr\\.nuget\\packages\\",
+        "outputPath": "D:\\Projetos\\_PIM\\_PIM\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lipeb\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jgabr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -87,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

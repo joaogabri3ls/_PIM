@@ -16,11 +16,19 @@
     <div class="rightContent">
         @if (isAdmin)
         {
-            <a asp-controller="Admin" asp-action="Index" style="background: white; color: #353535" ;>Dashboard</a>
+            <a class="LinkDash" asp-controller="Admin" asp-action="Index" style="background: white; color: #353535" ;>Dashboard</a>
         }
         <div class="cart" onclick="abrirCarrinho()">
             <i class="bi bi-bag-fill"></i>
             <span id="cartCount">0</span> 
+        </div>
+
+        <div class="account" onclick="toggleMenu()">
+            <i class="bi bi-person-circle"></i>
+            <div id="user-menu" class="menu hidden">
+                <a href="/Compras">Visualizar Compras</a>
+                <a href="javascript:logout()">Sair da Conta</a>
+            </div>
         </div>
     </div>
 </header>
@@ -221,6 +229,31 @@
 
     function fecharCarrinho() {
         document.getElementById('cartMenu').style.width = "0";
+    }
+
+
+    function toggleMenu() {
+        const menu = document.getElementById('user-menu');
+        menu.classList.toggle('hidden');
+    }
+
+    function logout() {
+        // Lógica para logout será configurada no backend
+        fetch('/Account/Logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('input[name="__RequestVerificationToken"]').value
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = '/';
+            } else {
+                alert('Erro ao sair da conta');
+            }
+        })
+        .catch(err => console.error(err));
     }
 </script>
 

@@ -34,11 +34,11 @@
                     <td>@Html.DisplayFor(modelItem => item.Preco)</td>
                     <td>@Html.DisplayFor(modelItem => item.Quantidade)</td>
                     <td>@Html.DisplayFor(modelItem => item.UrlImagem)</td>
-                    <td>
-                        <button class="Actions" onclick="window.location.href='@Url.Action("Edit", "Produto", new { id = item.Id })'">
+                    <td class="actionsGroup">
+                        <button class="ActionsTable" onclick="window.location.href='@Url.Action("Edit", "Produto", new { id = item.Id })'">
                             <i class="bi bi-pencil-fill"></i>
                         </button>
-                        <button class="Actions" onclick="window.location.href='@Url.Action("Delete", "Produto", new { id = item.Id })'">
+                        <button class="ActionsTable" onclick="window.location.href='@Url.Action("Delete", "Produto", new { id = item.Id })'">
                             <i class="bi bi-trash-fill"></i>
                         </button>
                     </td>

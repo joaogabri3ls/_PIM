@@ -1,14 +1,13 @@
 ﻿/* Contêiner geral dos sensores */
 .sensorContainer {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+    align-content: center;
     font-family: 'Roboto', sans-serif;
     gap: 20px;
-    padding: 40px 20px;
     background: #f9f9f9;
-    min-height: 100vh;
     box-sizing: border-box;
 }
 
@@ -17,7 +16,7 @@
     background-color: #fff;
     border: 1px solid #ddd;
     padding: 20px;
-    margin: 15px;
+    margin: 0px;
     width: 250px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
