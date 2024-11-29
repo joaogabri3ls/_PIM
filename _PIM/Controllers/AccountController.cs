@@ -19,6 +19,7 @@ namespace _PIM.Controllers
         [HttpGet]
         public IActionResult Register() => View();
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -38,7 +39,7 @@ namespace _PIM.Controllers
             }
             return View(model);
         }
-
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [HttpGet]
         public IActionResult Login()
         {
@@ -67,7 +68,7 @@ namespace _PIM.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
     }
 }

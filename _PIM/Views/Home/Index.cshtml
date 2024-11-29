@@ -27,7 +27,7 @@
             <i class="bi bi-person-circle"></i>
             <div id="user-menu" class="menu hidden">
                 <a href="/Compras">Visualizar Compras</a>
-                <a href="javascript:logout()">Sair da Conta</a>
+                <a href="#" onclick="logoutHandler(event)">Sair da Conta</a>
             </div>
         </div>
     </div>
@@ -237,24 +237,30 @@
         menu.classList.toggle('hidden');
     }
 
-    function logout() {
-        // Lógica para logout será configurada no backend
-        fetch('/Account/Logout', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('input[name="__RequestVerificationToken"]').value
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                window.location.href = '/';
-            } else {
-                alert('Erro ao sair da conta');
-            }
-        })
-        .catch(err => console.error(err));
+    function logoutHandler(event) {
+    event.preventDefault(); // Previne o redirecionamento imediato
+    clear(); // Limpa o carrinho
+    // Redireciona manualmente para a rota de logout
+    window.location.href = '/Account/Logout';
+}
+
+    function clear() {
+        carrinho = [];
+        totalItensCarrinho = 0;
+        console.log("Carrinho após clear:", carrinho);
+        console.log("Total de itens:", totalItensCarrinho);
+        document.querySelector('.cart span').textContent = totalItensCarrinho;
+        atualizarCarrinho();
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        console.log("Carrinho no localStorage:", localStorage.getItem('carrinho'));
     }
+    function logoutHandler(event) {
+        event.preventDefault(); // Previne o redirecionamento imediato
+        clear(); // Limpa o carrinho
+        // Redireciona manualmente para a rota de logout
+        window.location.href = '/Account/Logout';
+    }
+
 </script>
 
 
